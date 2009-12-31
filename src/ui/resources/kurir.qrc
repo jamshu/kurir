@@ -1,0 +1,33 @@
+<RCC>
+  <qresource prefix="kurir" >
+    <file>accept.png</file>
+    <file>application.png</file>
+    <file>attach.png</file>
+    <file>cancel.png</file>
+    <file>cog.png</file>
+    <file>compress.png</file>
+    <file>door_in.png</file>
+    <file>email_go.png</file>
+    <file>film.png</file>
+    <file>folder_add.png</file>
+    <file>font.png</file>
+    <file>kurir.qrc</file>
+    <file>music.png</file>
+    <file>page.png</file>
+    <file>page_add.png</file>
+    <file>page_delete.png</file>
+    <file>page_white_excel.png</file>
+    <file>page_white_powerpoint.png</file>
+    <file>page_white_word.png</file>
+    <file>pencil.png</file>
+    <file>picture.png</file>
+    <file>server.png</file>
+    <file>server_add.png</file>
+    <file>server_delete.png</file>
+    <file>server_edit.png</file>
+    <file>user.png</file>
+    <file>user_add.png</file>
+    <file>user_delete.png</file>
+    <file>user_edit.png</file>
+  </qresource>
+</RCC>
