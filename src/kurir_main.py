@@ -32,16 +32,7 @@ class KurirMainWindow(QtGui.QMainWindow):
             try:
                 self.accounts = pickle.load(open('accounts.db', 'r'))
             except IOError:
-                self.accounts = [{"from_address":"kurir.account@gmail.com",
-                                  "username":"kurir.account@gmail.com",
-                                  "password":"kuriraccount",
-                                  "hostname":"smtp.gmail.com",
-                                  "port":587,
-                                  "use_auth":True,
-                                  "connection":"STARTTLS",
-                                  "max_size":25,
-                                  "max_size_type": "MB"
-                                  }]
+                self.accounts = []
             
         self.ui.comboBoxFrom.clear()
         
