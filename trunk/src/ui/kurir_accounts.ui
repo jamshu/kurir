@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AccountsDialog</class>
+ <widget class="QDialog" name="AccountsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>344</width>
+    <height>286</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Accounts</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources/kurir.qrc">
+    <normaloff>:/kurir/user.png</normaloff>:/kurir/user.png</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <property name="margin">
+    <number>2</number>
+   </property>
+   <item>
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="bottomMargin">
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QToolButton" name="toolButtonAddAccount">
+           <property name="text">
+            <string>Add account</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources/kurir.qrc">
+             <normaloff>:/kurir/user_add.png</normaloff>:/kurir/user_add.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButtonEditAccount">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Edit account</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources/kurir.qrc">
+             <normaloff>:/kurir/user_edit.png</normaloff>:/kurir/user_edit.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButtonDeleteAccount">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Delete account</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources/kurir.qrc">
+             <normaloff>:/kurir/user_delete.png</normaloff>:/kurir/user_delete.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTreeWidget" name="treeWidgetAccounts">
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <attribute name="headerDefaultSectionSize">
+          <number>80</number>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>From</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Hostname</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Settings</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>From address:</string>
+              </property>
+              <property name="buddy">
+               <cstring>lineEditFromAddress</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" colspan="6">
+             <widget class="QLineEdit" name="lineEditFromAddress">
+              <property name="toolTip">
+               <string>From address</string>
+              </property>
+              <property name="is_required" stdset="0">
+               <bool>true</bool>
+              </property>
+              <property name="is_email" stdset="0">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Hostname:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Max size:</string>
+              </property>
+              <property name="buddy">
+               <cstring>lineEditMaxSize</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2">
+             <widget class="QLineEdit" name="lineEditMaxSize">
+              <property name="toolTip">
+               <string>Maximum size</string>
+              </property>
+              <property name="inputMask">
+               <string/>
+              </property>
+              <property name="is_required" stdset="0">
+               <bool>true</bool>
+              </property>
+              <property name="is_integer" stdset="0">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="7">
+             <widget class="QLineEdit" name="lineEditPort">
+              <property name="toolTip">
+               <string>Port number</string>
+              </property>
+              <property name="inputMask">
+               <string/>
+              </property>
+              <property name="is_required" stdset="0">
+               <bool>true</bool>
+              </property>
+              <property name="is_integer" stdset="0">
+               <bool>true</bool>
+              </property>
+              <property name="min_int" stdset="0">
+               <number>1</number>
+              </property>
+              <property name="max_int" stdset="0">
+               <number>1000000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0" colspan="2">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Security:</string>
+              </property>
+              <property name="buddy">
+               <cstring>comboBoxConnection</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2" colspan="6">
+             <widget class="QLineEdit" name="lineEditPassword">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="inputMask">
+               <string/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="echoMode">
+               <enum>QLineEdit::Password</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="2" colspan="2">
+             <widget class="QComboBox" name="comboBoxConnection"/>
+            </item>
+            <item row="5" column="0" colspan="3">
+             <widget class="QCheckBox" name="checkBoxUsernamePw">
+              <property name="text">
+               <string>Use name &amp; password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="labelUsername">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Username:</string>
+              </property>
+              <property name="buddy">
+               <cstring>lineEditUsername</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="labelPassword">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Password:</string>
+              </property>
+              <property name="buddy">
+               <cstring>lineEditPassword</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2" colspan="6">
+             <widget class="QLineEdit" name="lineEditUsername">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Port:</string>
+              </property>
+              <property name="buddy">
+               <cstring>lineEditPort</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4" colspan="3">
+             <widget class="QComboBox" name="comboBoxMaxSizeType"/>
+            </item>
+            <item row="3" column="7">
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="8" column="2" colspan="3">
+             <widget class="QCheckBox" name="checkBoxShowPw">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Show password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" colspan="4">
+             <widget class="QComboBox" name="comboBoxHostname">
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+              <property name="currentIndex">
+               <number>-1</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButtonSave">
+           <property name="text">
+            <string>Save</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources/kurir.qrc">
+             <normaloff>:/kurir/accept.png</normaloff>:/kurir/accept.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButtonCancel">
+           <property name="text">
+            <string>Cancel</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources/kurir.qrc">
+             <normaloff>:/kurir/cancel.png</normaloff>:/kurir/cancel.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>lineEditFromAddress</tabstop>
+  <tabstop>lineEditPort</tabstop>
+  <tabstop>lineEditMaxSize</tabstop>
+  <tabstop>comboBoxMaxSizeType</tabstop>
+  <tabstop>checkBoxUsernamePw</tabstop>
+  <tabstop>lineEditUsername</tabstop>
+  <tabstop>lineEditPassword</tabstop>
+  <tabstop>checkBoxShowPw</tabstop>
+  <tabstop>comboBoxConnection</tabstop>
+  <tabstop>toolButtonSave</tabstop>
+  <tabstop>toolButtonCancel</tabstop>
+  <tabstop>toolButtonDeleteAccount</tabstop>
+  <tabstop>toolButtonAddAccount</tabstop>
+  <tabstop>toolButtonEditAccount</tabstop>
+  <tabstop>treeWidgetAccounts</tabstop>
+ </tabstops>
+ <resources>
+  <include location="resources/kurir.qrc"/>
+ </resources>
+ <connections/>
+</ui>
