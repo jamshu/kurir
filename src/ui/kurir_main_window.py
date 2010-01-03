@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '.\ui\kurir_main.ui'
 #
-# Created: Thu Dec 31 01:26:54 2009
+# Created: Sun Jan 03 19:35:46 2010
 #      by: PyQt4 UI code generator 4.6
 #
 # WARNING! All changes made in this file will be lost!

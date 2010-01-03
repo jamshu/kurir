@@ -11,24 +11,31 @@ import os
 
 
 class KurirSendDialog(QtGui.QDialog):
-    def __init__(self, parent, account, to_address, subject, body, files):
+    def __init__(self, parent, account, package):
         QtGui.QDialog.__init__(self, parent)
         self.ui = Ui_SendDialog()
         self.ui.setupUi(self)
         
-        self.send_thread = SendThread(self, account, to_address, subject, body, files)
+        self.send_thread = SendThread(self, account, package)
         self.history = []
         
         # slots/signals
         self.connect(self.send_thread, QtCore.SIGNAL("transfer_progress"), self.transfer_progress)
-        self.connect(self.send_thread, QtCore.SIGNAL("overall_progress"), self.overall_progress)
         self.connect(self.send_thread, QtCore.SIGNAL("fatal_error"), self.fatal_error)
         self.connect(self.send_thread, QtCore.SIGNAL("canceled"), self.canceled)
-        self.connect(self.send_thread, QtCore.SIGNAL("status_update"), self.status_update)
+        self.connect(self.send_thread, QtCore.SIGNAL("status"), self.status)
+        self.connect(self.send_thread, QtCore.SIGNAL("done"), self.finished)
         
         self.send_thread.start()
         
-    def status_update(self, msg):
+    def finished(self):
+        self.send_thread.quit()
+        self.send_thread.wait()
+        self.ui.labelOverall.setText("Done!")
+        self.ui.btnCancelFinish.setText('Close')
+        
+        
+    def status(self, msg):
         self.ui.labelOverall.setText(msg) 
         
     def canceled(self):
@@ -45,24 +52,24 @@ class KurirSendDialog(QtGui.QDialog):
         self.send_thread.wait()
         self.ui.btnCancelFinish.setText("Close")
         
-    def overall_progress(self, filename, progress, total):
-        print "file progress", progress, total
-        
-        self.history = []
-        
-        if progress % 2:
-            norm_progress = (progress + 1)/2
-        else:
-            norm_progress = progress / 2
-        
-        self.ui.labelOverall.setText("Sending %s [%s of %s]" % (os.path.split(filename)[-1], norm_progress, total/2))
-        self.ui.progressOverall.setMaximum(total)
-        self.ui.progressOverall.setValue(progress)
-        
-        if progress == total:
-            self.send_thread.quit()
-            self.send_thread.wait()
-            self.ui.btnCancelFinish.setText('Close')
+#    def overall_progress(self, filename, progress, total):
+#        print "file progress", progress, total
+#        
+#        self.history = []
+#        
+#        if progress % 2:
+#            norm_progress = (progress + 1)/2
+#        else:
+#            norm_progress = progress / 2
+#        
+#        self.ui.labelOverall.setText("Sending %s [%s of %s]" % (os.path.split(filename)[-1], norm_progress, total/2))
+#        self.ui.progressOverall.setMaximum(total)
+#        self.ui.progressOverall.setValue(progress)
+#        
+#        if progress == total:
+#            self.send_thread.quit()
+#            self.send_thread.wait()
+#            self.ui.btnCancelFinish.setText('Close')
         
     
     
@@ -74,6 +81,8 @@ class KurirSendDialog(QtGui.QDialog):
         history = self.history[-500:]
         time_diff = history[-1][0] - history[0][0]
         progress_diff = history[-1][1] - history[0][1]
+        if progress == total:
+            self.history = []
         
         print "timediff", time_diff, progress_diff
         
@@ -83,9 +92,10 @@ class KurirSendDialog(QtGui.QDialog):
             speed = progress_diff
         
         
-        self.ui.labelTransfer.setText("Transferred %s of %s (%s/s)" % (convert_bytes(progress), convert_bytes(total), convert_bytes(speed)))
+#        self.ui.labelTransfer.setText("Transferred %s of %s (%s/s)" % (convert_bytes(progress), convert_bytes(total), convert_bytes(speed)))
         self.ui.progressTransfer.setMaximum(total)
-        self.ui.progressTransfer.setValue(progress)   
+        self.ui.progressTransfer.setValue(progress)
+        self.setWindowTitle("%s/s" % (convert_bytes(speed)))
         
     @QtCore.pyqtSlot()
     def on_btnCancelFinish_clicked(self):
@@ -97,14 +107,5 @@ class KurirSendDialog(QtGui.QDialog):
                                              QtGui.QMessageBox.Yes|QtGui.QMessageBox.No)
             if btn == QtGui.QMessageBox.Yes:
                 self.emit(QtCore.SIGNAL("cancel"))
-                self.status_update("Cancelling...")
+                self.status("Cancelling...")
                 self.ui.btnCancelFinish.setEnabled(False)     
-    
-    @QtCore.pyqtSlot()
-    def on_toolButtonCancel_clicked(self):
-        self.ui.stackedWidget.setCurrentIndex(0)
-    
-    @QtCore.pyqtSlot(QtGui.QTreeWidgetItem, int)        
-    def on_treeWidgetAccounts_itemDoubleClicked(self, twi, column):
-        self.current_account = twi.account
-        self.edit_account()

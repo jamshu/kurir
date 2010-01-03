@@ -8,6 +8,8 @@ from PyQt4 import QtGui, QtCore
 from ui.kurir_main_window import Ui_MainWindow
 from kurir_accounts import KurirAccountsDialog
 from kurir_send import KurirSendDialog
+from message import KurirPackage
+from attachment import KurirAttachment
 from utils import convert_bytes, get_file_icon
 
 MIME_FORMAT = 'text/uri-list'
@@ -39,7 +41,7 @@ class KurirMainWindow(QtGui.QMainWindow):
         current_index = -1
         current_account = self.current_account
         for index, account in enumerate(self.accounts):
-            self.ui.comboBoxFrom.addItem(account["from_address"])
+            self.ui.comboBoxFrom.addItem(account.from_address)
         
             if current_account == account:
                 current_index = index
@@ -54,7 +56,7 @@ class KurirMainWindow(QtGui.QMainWindow):
         iter = QtGui.QTreeWidgetItemIterator(self.ui.treeWidgetFiles)
         while iter.value(): 
             file_count += 1
-            total_size += iter.value().file_info['size']
+            total_size += iter.value().attachment.size
             iter += 1
             
         self.ui.tabWidget.setTabText(1, "Files (%s)" % (file_count))
@@ -67,21 +69,17 @@ class KurirMainWindow(QtGui.QMainWindow):
                 # file not found, skip
                 continue
             
-            fstat = os.stat(unicode(filename))
-            
-            file_info = {'path' : filename,
-                         'name': os.path.split(unicode(filename))[-1],
-                         'size': fstat.st_size}
+            attachment = KurirAttachment(unicode(filename))
             
             twi = QtGui.QTreeWidgetItem()
-            twi.file_info = file_info
-            twi.setText(0, file_info['name'])
-            twi.setToolTip(0, file_info['path'])
-            twi.setText(1, convert_bytes(file_info['size']))
-            twi.setToolTip(1, "%s bytes" % file_info['size'])
+            twi.attachment = attachment
+            twi.setText(0, attachment.name)
+            twi.setToolTip(0, attachment.path)
+            twi.setText(1, convert_bytes(attachment.size))
+            twi.setToolTip(1, "%s bytes" % attachment.size)
             
             icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap(":/kurir/%s" % (get_file_icon(file_info['name']))), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            icon.addPixmap(QtGui.QPixmap(":/kurir/%s" % (get_file_icon(attachment.name))), QtGui.QIcon.Normal, QtGui.QIcon.Off)
             twi.setIcon(0, icon)            
             
             self.ui.treeWidgetFiles.addTopLevelItem(twi)
@@ -193,11 +191,11 @@ class KurirMainWindow(QtGui.QMainWindow):
         else:
             iter = QtGui.QTreeWidgetItemIterator(self.ui.treeWidgetFiles)
             while iter.value():
-                file_info = iter.value().file_info
-                if file_info["size"] > self.current_account["max_size_bytes"]:
+                attachment = iter.value().attachment
+                if attachment.size > self.current_account.max_size_bytes:
                     QtGui.QMessageBox.critical(self, 
                                                "Error", 
-                                               "'%s' larger than %s %s" % (file_info["name"], self.current_account["max_size"], self.current_account["max_size_type"]))
+                                               "'%s' larger than %s %s" % (attachment.name, self.current_account.max_size, self.current_account.max_size_type))
                     return False
                 iter += 1
                 
@@ -210,7 +208,7 @@ class KurirMainWindow(QtGui.QMainWindow):
             
             iter = QtGui.QTreeWidgetItemIterator(self.ui.treeWidgetFiles)
             while iter.value():
-                files.append(iter.value().file_info)
+                files.append(iter.value().attachment)
                 iter += 1
                 
             if not len(files):
@@ -221,7 +219,11 @@ class KurirMainWindow(QtGui.QMainWindow):
             subject = str(self.ui.lineEditSubject.text())
             body = str(self.ui.plainTextEditBody.toPlainText())
             
-            ui = KurirSendDialog(self, self.current_account, to_address, subject, body, files)
+            package = KurirPackage(self.current_account.from_address,
+                                   to_address, subject, body, max_size=1, 
+                                   add_summary=True, attachments=files)
+            
+            ui = KurirSendDialog(self, self.current_account, package)
             ui.exec_() 
     
     

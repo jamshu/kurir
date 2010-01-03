@@ -152,12 +152,12 @@
                <string>From address:</string>
               </property>
               <property name="buddy">
-               <cstring>lineEditFromAddress</cstring>
+               <cstring>from_address</cstring>
               </property>
              </widget>
             </item>
-            <item row="0" column="2" colspan="6">
-             <widget class="QLineEdit" name="lineEditFromAddress">
+            <item row="0" column="2" colspan="5">
+             <widget class="QLineEdit" name="from_address">
               <property name="toolTip">
                <string>From address</string>
               </property>
@@ -182,12 +182,12 @@
                <string>Max size:</string>
               </property>
               <property name="buddy">
-               <cstring>lineEditMaxSize</cstring>
+               <cstring>max_size</cstring>
               </property>
              </widget>
             </item>
             <item row="3" column="2" colspan="2">
-             <widget class="QLineEdit" name="lineEditMaxSize">
+             <widget class="QLineEdit" name="max_size">
               <property name="toolTip">
                <string>Maximum size</string>
               </property>
@@ -202,8 +202,8 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="7">
-             <widget class="QLineEdit" name="lineEditPort">
+            <item row="1" column="6">
+             <widget class="QLineEdit" name="port">
               <property name="toolTip">
                <string>Port number</string>
               </property>
@@ -230,12 +230,12 @@
                <string>Security:</string>
               </property>
               <property name="buddy">
-               <cstring>comboBoxConnection</cstring>
+               <cstring>security</cstring>
               </property>
              </widget>
             </item>
-            <item row="7" column="2" colspan="6">
-             <widget class="QLineEdit" name="lineEditPassword">
+            <item row="7" column="2" colspan="5">
+             <widget class="QLineEdit" name="password">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -251,10 +251,21 @@
              </widget>
             </item>
             <item row="9" column="2" colspan="2">
-             <widget class="QComboBox" name="comboBoxConnection"/>
+             <widget class="QComboBox" name="security">
+              <item>
+               <property name="text">
+                <string>None</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>STARTTLS</string>
+               </property>
+              </item>
+             </widget>
             </item>
             <item row="5" column="0" colspan="3">
-             <widget class="QCheckBox" name="checkBoxUsernamePw">
+             <widget class="QCheckBox" name="use_auth">
               <property name="text">
                <string>Use name &amp; password</string>
               </property>
@@ -269,7 +280,7 @@
                <string>Username:</string>
               </property>
               <property name="buddy">
-               <cstring>lineEditUsername</cstring>
+               <cstring>username</cstring>
               </property>
              </widget>
             </item>
@@ -295,31 +306,42 @@
                <string>Password:</string>
               </property>
               <property name="buddy">
-               <cstring>lineEditPassword</cstring>
+               <cstring>password</cstring>
               </property>
              </widget>
             </item>
-            <item row="6" column="2" colspan="6">
-             <widget class="QLineEdit" name="lineEditUsername">
+            <item row="6" column="2" colspan="5">
+             <widget class="QLineEdit" name="username">
               <property name="enabled">
                <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="1" column="6">
+            <item row="1" column="5">
              <widget class="QLabel" name="label_7">
               <property name="text">
                <string>Port:</string>
               </property>
               <property name="buddy">
-               <cstring>lineEditPort</cstring>
+               <cstring>port</cstring>
               </property>
              </widget>
             </item>
-            <item row="3" column="4" colspan="3">
-             <widget class="QComboBox" name="comboBoxMaxSizeType"/>
+            <item row="3" column="4" colspan="2">
+             <widget class="QComboBox" name="max_size_type">
+              <item>
+               <property name="text">
+                <string>KB</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>MB</string>
+               </property>
+              </item>
+             </widget>
             </item>
-            <item row="3" column="7">
+            <item row="3" column="6">
              <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -342,15 +364,8 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="2" colspan="4">
-             <widget class="QComboBox" name="comboBoxHostname">
-              <property name="editable">
-               <bool>true</bool>
-              </property>
-              <property name="currentIndex">
-               <number>-1</number>
-              </property>
-             </widget>
+            <item row="1" column="2" colspan="3">
+             <widget class="QLineEdit" name="host_name"/>
             </item>
            </layout>
           </item>
@@ -415,15 +430,15 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lineEditFromAddress</tabstop>
-  <tabstop>lineEditPort</tabstop>
-  <tabstop>lineEditMaxSize</tabstop>
-  <tabstop>comboBoxMaxSizeType</tabstop>
-  <tabstop>checkBoxUsernamePw</tabstop>
-  <tabstop>lineEditUsername</tabstop>
-  <tabstop>lineEditPassword</tabstop>
+  <tabstop>from_address</tabstop>
+  <tabstop>port</tabstop>
+  <tabstop>max_size</tabstop>
+  <tabstop>max_size_type</tabstop>
+  <tabstop>use_auth</tabstop>
+  <tabstop>username</tabstop>
+  <tabstop>password</tabstop>
   <tabstop>checkBoxShowPw</tabstop>
-  <tabstop>comboBoxConnection</tabstop>
+  <tabstop>security</tabstop>
   <tabstop>toolButtonSave</tabstop>
   <tabstop>toolButtonCancel</tabstop>
   <tabstop>toolButtonDeleteAccount</tabstop>
